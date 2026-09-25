@@ -1,0 +1,54 @@
+name: MLB Daily Auto Update
+
+on:
+  schedule:
+    # 01:00 UTC = 09:00 台北時間,每天自動執行
+    - cron: '0 1 * * *'
+  workflow_dispatch: {}   # 允許在 Actions 頁面手動點按鈕觸發,方便測試
+
+permissions:
+  contents: write   # 需要寫入權限才能把結果 commit 回這個 repo
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compute Taipei-time dates
+        id: dates
+        run: |
+          echo "tomorrow=$(TZ='Asia/Taipei' date -d '+1 day' +%F)" >> "$GITHUB_OUTPUT"
+          echo "yesterday=$(TZ='Asia/Taipei' date -d '-1 day' +%F)" >> "$GITHUB_OUTPUT"
+          echo "now=$(TZ='Asia/Taipei' date +'%Y-%m-%d %H:%M %Z')" >> "$GITHUB_OUTPUT"
+
+      - name: Ensure docs folder exists
+        run: mkdir -p docs
+
+      - name: Run today's prediction
+        run: |
+          python mlb_predictor.py --live --date "${{ steps.dates.outputs.tomorrow }}" \
+            --html docs/report.html --no-open
+
+      - name: Verify yesterday's predictions (ignore failure if no record yet)
+        run: |
+          python mlb_predictor.py --verify "${{ steps.dates.outputs.yesterday }}" \
+            --html docs/verify_report.html --no-open || echo "尚無 ${{ steps.dates.outputs.yesterday }} 的預測記錄可核對,略過"
+
+      - name: Update cumulative accuracy stats
+        run: |
+          python mlb_predictor.py --stats --html docs/stats.html --no-open || true
+
+      - name: Commit and push results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/history docs
+          git diff --cached --quiet || git commit -m "Auto update: ${{ steps.dates.outputs.now }}"
+          git push

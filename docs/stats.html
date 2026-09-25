@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>MLB 累積準確率統計</title>
+<style>
+  :root { --bg:#0f1115; --card:#171a21; --line:#2a2e38; --text:#e8e9ec; --sub:#9aa1ac; --accent:#4f8cff; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+          font-family:-apple-system,"Microsoft JhengHei","PingFang TC",sans-serif;
+          padding:24px 16px 60px; }
+  h1 { text-align:center; font-size:22px; margin-bottom:16px; }
+  .summary { text-align:center; color:var(--accent); font-size:15px; margin-bottom:24px;
+              background:var(--card); max-width:800px; margin-left:auto; margin-right:auto;
+              padding:14px; border-radius:10px; font-weight:600; }
+  .empty { text-align:center; color:var(--sub); }
+  table { width:100%; max-width:800px; margin:0 auto; border-collapse:collapse;
+           background:var(--card); border-radius:12px; overflow:hidden; }
+  th, td { padding:10px; border-bottom:1px solid var(--line); font-size:14px; text-align:center; }
+  th { color:var(--sub); font-weight:600; }
+  tr:last-child td { border-bottom:none; }
+  .unknown { color:var(--sub); }
+  .back { display:block; text-align:center; margin-top:24px; }
+  .back a { color:var(--accent); text-decoration:none; }
+</style>
+</head>
+<body>
+  <h1>📈 MLB 累積準確率統計</h1>
+  
+  <p class="empty">目前還沒有任何可核對的預測記錄,累積幾天資料後再回來看。</p>
+  <div class="back"><a href="index.html">← 回首頁</a></div>
+</body>
+</html>

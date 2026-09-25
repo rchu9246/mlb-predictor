@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MLB 勝率預測系統</title>
+<style>
+  :root { --bg:#0f1115; --card:#171a21; --line:#2a2e38; --text:#e8e9ec; --sub:#9aa1ac; --accent:#4f8cff; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+         font-family:-apple-system,"Microsoft JhengHei","PingFang TC",sans-serif;
+         padding:60px 16px; display:flex; flex-direction:column; align-items:center; }
+  h1 { font-size:26px; margin-bottom:8px; }
+  .sub { color:var(--sub); font-size:14px; margin-bottom:40px; }
+  .cards { display:flex; flex-direction:column; gap:16px; width:100%; max-width:420px; }
+  a.card { display:block; background:var(--card); border:1px solid var(--line); border-radius:14px;
+           padding:20px; text-decoration:none; color:var(--text); transition:border-color .2s; }
+  a.card:hover { border-color:var(--accent); }
+  a.card .title { font-size:17px; font-weight:600; margin-bottom:4px; }
+  a.card .desc { font-size:13px; color:var(--sub); }
+  .footer { margin-top:50px; color:var(--sub); font-size:12px; text-align:center; }
+</style>
+</head>
+<body>
+  <h1>⚾ MLB 勝率預測系統</h1>
+  <div class="sub">每天台北時間早上9點自動更新</div>
+  <div class="cards">
+    <a class="card" href="report.html">
+      <div class="title">📅 今日賽事預測</div>
+      <div class="desc">明天(或今天)所有場次的勝率預測,依信心程度排序</div>
+    </a>
+    <a class="card" href="verify_report.html">
+      <div class="title">📊 昨日核對報告</div>
+      <div class="desc">昨天的預測跟實際戰果逐場比對</div>
+    </a>
+    <a class="card" href="stats.html">
+      <div class="title">📈 累積準確率</div>
+      <div class="desc">至今所有已核對日期的整體命中率統計</div>
+    </a>
+  </div>
+  <div class="footer">
+    模型:Log5公式 + 主場優勢 + 先發投手戰力 + 傷兵嚴重度調整<br>
+    此為簡化量化模型,僅供參考,不構成投注建議
+  </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+[
+  {"home": "NYY", "away": "TB",  "home_pitcher": "Gerrit Cole",        "away_pitcher": "Steven Matz"},
+  {"home": "BAL", "away": "TOR", "home_pitcher": "Trey Gibson",        "away_pitcher": "CJ Van Eyk"},
+  {"home": "DET", "away": "WSH", "home_pitcher": "Framber Valdez",     "away_pitcher": "Cade Cavalli"},
+  {"home": "PHI", "away": "MIL", "home_pitcher": "Aaron Nola",         "away_pitcher": "Logan Henderson"},
+  {"home": "PIT", "away": "STL", "home_pitcher": "Khristian Curtis",   "away_pitcher": "Matthew Liberatore"},
+  {"home": "BOS", "away": "CLE", "home_pitcher": "Sonny Gray",         "away_pitcher": "Foster Griffin"},
+  {"home": "ATL", "away": "CIN", "home_pitcher": "Chris Sale",         "away_pitcher": "Andrew Abbott"},
+  {"home": "KC",  "away": "CWS", "home_pitcher": "Seth Lugo",          "away_pitcher": "Erick Fedde"},
+  {"home": "CHC", "away": "MIA", "home_pitcher": "Kevin Gausman",      "away_pitcher": "Ryan Gusto"},
+  {"home": "TEX", "away": "NYM", "home_pitcher": "Cody Bradford",      "away_pitcher": "Nolan McLean"},
+  {"home": "COL", "away": "AZ",  "home_pitcher": "Mason Adams",        "away_pitcher": "Merrill Kelly"},
+  {"home": "SEA", "away": "HOU", "home_pitcher": "George Kirby",       "away_pitcher": "Ethan Pecko"},
+  {"home": "ATH", "away": "LAA", "home_pitcher": "Jeffrey Springs",    "away_pitcher": "Walbert Urena"},
+  {"home": "SF",  "away": "MIN", "home_pitcher": "Cesar Perdomo",      "away_pitcher": "Connor Prielipp"},
+  {"home": "LAD", "away": "SD",  "home_pitcher": "Yoshinobu Yamamoto", "away_pitcher": "Robbie Ray"}
+]
