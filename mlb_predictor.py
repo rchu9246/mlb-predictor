@@ -26,7 +26,14 @@ import os
 import sys
 import webbrowser
 import urllib.request
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
+
+# 台灣沒有日光節省時間,固定UTC+8即可,不需要額外安裝tzdata套件
+TAIPEI_TZ = timezone(timedelta(hours=8))
+
+
+def taipei_now_str():
+    return datetime.now(TAIPEI_TZ).strftime("%Y-%m-%d %H:%M")
 
 # ---------------------------------------------------------------------------
 # 路徑設定
@@ -596,6 +603,7 @@ def generate_verify_html(comparisons, stats, target_date, path):
 <body>
   <h1>📊 MLB 預測核對報告</h1>
   <div class="date">{target_date} 賽事</div>
+  <div class="date" style="opacity:0.6;font-size:12px;">最後更新: {taipei_now_str()} (台北時間)</div>
   <div class="stats">{acc_line}</div>
   <table><tbody>{''.join(rows_html)}</tbody></table>
   <div style="text-align:center;margin-top:20px;">
@@ -686,6 +694,7 @@ def generate_html(results, target_date, path):
 <body>
   <h1>⚾ MLB 勝率預測報告</h1>
   <div class="date">{target_date} 賽事｜依信心程度排序｜藍色=較被看好</div>
+  <div class="date" style="opacity:0.6;font-size:12px;">最後更新: {taipei_now_str()} (台北時間)</div>
   <table>
     <tbody>
       {''.join(rows_html)}
@@ -840,6 +849,7 @@ def generate_stats_html(per_day, overall, path):
 </head>
 <body>
   <h1>📈 MLB 累積準確率統計</h1>
+  <div style="text-align:center;color:var(--sub);font-size:12px;opacity:0.6;margin-bottom:12px;">最後更新: {taipei_now_str()} (台北時間)</div>
   {f'<div class="summary">{summary_line}</div>' if summary_line else ''}
   {body}
   <div class="back"><a href="index.html">← 回首頁</a></div>

@@ -2,8 +2,10 @@ name: MLB Daily Auto Update
 
 on:
   schedule:
-    # 01:00 UTC = 09:00 台北時間,每天自動執行
+    # 01:00 UTC = 09:00 台北時間(早上第一次更新)
     - cron: '0 1 * * *'
+    # 14:00 UTC = 22:00 台北時間(晚上補一次,這時候先發投手名單通常更完整)
+    - cron: '0 14 * * *'
   workflow_dispatch: {}   # 允許在 Actions 頁面手動點按鈕觸發,方便測試
 
 permissions:
