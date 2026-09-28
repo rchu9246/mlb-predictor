@@ -534,7 +534,21 @@ def print_verify_report(comparisons, stats, target_date):
     print("=" * 100 + "\n")
 
 
-def generate_verify_html(comparisons, stats, target_date, path, nav_prefix=""):
+def build_date_picker(date_options, current_date, detail_base):
+    """date_options: [(日期, 顯示文字), ...];detail_base: 從這一頁走到各日明細頁的相對路徑前綴"""
+    if not date_options:
+        return ""
+    opts = []
+    for d, label in date_options:
+        sel = " selected" if d == current_date else ""
+        opts.append(f'<option value="{detail_base}{d}.html"{sel}>{label}</option>')
+    return ('<div class="picker"><label>選擇日期:</label>'
+            '<select onchange="if(this.value) location.href=this.value">' + "".join(opts) + '</select></div>')
+
+
+def generate_verify_html(comparisons, stats, target_date, path, nav_prefix="",
+                         date_options=None, detail_base=""):
+    picker_html = build_date_picker(date_options, target_date, detail_base)
     rows_html = []
     for c in comparisons:
         if not c.get("matched"):
@@ -593,6 +607,9 @@ def generate_verify_html(comparisons, stats, target_date, path, nav_prefix=""):
   .correct {{ color:var(--good); font-weight:700; }}
   .wrong {{ color:var(--bad); font-weight:700; }}
   .unknown {{ color:var(--neutral); }}
+  .picker {{ text-align:center; margin:0 auto 16px; color:var(--sub); font-size:14px; }}
+  .picker select {{ background:var(--card); color:var(--text); border:1px solid var(--line);
+                    border-radius:8px; padding:8px 12px; font-size:14px; margin-left:6px; max-width:92%; }}
   @media (max-width:700px) {{
     table, tbody, tr, td {{ display:block; width:100%; }}
     tr {{ margin-bottom:10px; border:1px solid var(--line); border-radius:10px; padding:6px; }}
@@ -604,6 +621,7 @@ def generate_verify_html(comparisons, stats, target_date, path, nav_prefix=""):
   <h1>📊 MLB 預測核對報告</h1>
   <div class="date">{target_date} 賽事</div>
   <div class="date" style="opacity:0.6;font-size:12px;">最後更新: {taipei_now_str()} (台北時間)</div>
+  {picker_html}
   <div class="stats">{acc_line}</div>
   <table><tbody>{''.join(rows_html)}</tbody></table>
   <div style="text-align:center;margin-top:20px;">
@@ -912,10 +930,22 @@ def main():
         if args.html:
             html_path = args.html if args.html != DEFAULT_HTML_OUTPUT else os.path.join(BASE_DIR, "stats.html")
 
+        date_options = []
+        for d in sorted(details.keys(), reverse=True):
+            st = details[d][1]
+            if st["finished_games"] > 0:
+                label = f"{d} · 猜對 {st['correct_count']}/{st['finished_games']} ({st['accuracy']:.0f}%)"
+                if st.get("pending"):
+                    label += f" · 另有{st['pending']}場未結束"
+            else:
+                label = f"{d} · 尚無已結束比賽"
+            date_options.append((d, label))
+
         if args.detail_dir and details:
             for d, (comparisons, stats) in details.items():
                 generate_verify_html(comparisons, stats, d,
-                                     os.path.join(args.detail_dir, f"{d}.html"), nav_prefix="../")
+                                     os.path.join(args.detail_dir, f"{d}.html"), nav_prefix="../",
+                                     date_options=date_options, detail_base="")
             print(f"已產生 {len(details)} 份每日核對明細: {args.detail_dir}")
             if html_path:
                 rel = os.path.relpath(args.detail_dir, os.path.dirname(os.path.abspath(html_path)))
@@ -929,7 +959,13 @@ def main():
             if pick is None:
                 pick = next((d for d in dates_desc if details[d][1]["finished_games"] > 0), None)
             if pick:
-                generate_verify_html(details[pick][0], details[pick][1], pick, args.latest_verify)
+                base = ""
+                if args.detail_dir:
+                    rel = os.path.relpath(args.detail_dir, os.path.dirname(os.path.abspath(args.latest_verify)))
+                    base = rel.replace(os.sep, "/") + "/"
+                generate_verify_html(details[pick][0], details[pick][1], pick, args.latest_verify,
+                                     date_options=date_options if args.detail_dir else None,
+                                     detail_base=base)
                 print(f"最近核對報告({pick})已產生: {args.latest_verify}")
 
         if args.html:
