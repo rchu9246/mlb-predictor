@@ -534,7 +534,7 @@ def print_verify_report(comparisons, stats, target_date):
     print("=" * 100 + "\n")
 
 
-def generate_verify_html(comparisons, stats, target_date, path):
+def generate_verify_html(comparisons, stats, target_date, path, nav_prefix=""):
     rows_html = []
     for c in comparisons:
         if not c.get("matched"):
@@ -607,12 +607,13 @@ def generate_verify_html(comparisons, stats, target_date, path):
   <div class="stats">{acc_line}</div>
   <table><tbody>{''.join(rows_html)}</tbody></table>
   <div style="text-align:center;margin-top:20px;">
-    <a href="index.html" style="color:#4f8cff">回首頁</a>　
-    <a href="report.html" style="color:#4f8cff">今日預測</a>　
-    <a href="stats.html" style="color:#4f8cff">累積準確率</a>
+    <a href="{nav_prefix}index.html" style="color:#4f8cff">回首頁</a>　
+    <a href="{nav_prefix}report.html" style="color:#4f8cff">今日預測</a>　
+    <a href="{nav_prefix}stats.html" style="color:#4f8cff">累積準確率(每日明細)</a>
   </div>
 </body>
 </html>"""
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         f.write(html)
     return path
@@ -724,19 +725,20 @@ def compute_cumulative_stats():
     逐日比對後彙總成累積至今的整體命中率。
     """
     if not os.path.isdir(HISTORY_DIR):
-        return [], {"total_days": 0, "finished_games": 0, "correct_count": 0, "accuracy": None}
+        return [], {"total_days": 0, "finished_games": 0, "correct_count": 0, "accuracy": None}, {}
 
     history_dates = sorted(f[:-5] for f in os.listdir(HISTORY_DIR) if f.endswith(".json"))
     if not history_dates:
-        return [], {"total_days": 0, "finished_games": 0, "correct_count": 0, "accuracy": None}
+        return [], {"total_days": 0, "finished_games": 0, "correct_count": 0, "accuracy": None}, {}
 
     try:
         id_to_abbr = fetch_team_abbr_map()
     except Exception as e:
         print(f"[錯誤] 無法連線抓取戰果 ({e})。請確認網路連線正常。")
-        return [], {"total_days": 0, "finished_games": 0, "correct_count": 0, "accuracy": None}
+        return [], {"total_days": 0, "finished_games": 0, "correct_count": 0, "accuracy": None}, {}
 
     per_day = []
+    details = {}
     all_finals = []
     for d in history_dates:
         predicted = load_predictions_history(d)
@@ -748,7 +750,13 @@ def compute_cumulative_stats():
             print(f"[警告] {d} 抓取戰果失敗 ({e}),跳過這天")
             continue
         comparisons, stats = compare_predictions(predicted, actual)
+        # 延賽/取消的場次不會再變成「已結束」,要跟「還沒打完」分開算,否則那天永遠顯示未完成
+        off = [c for c in comparisons if c.get("matched") and not c.get("final")
+               and c.get("status") in ("Postponed", "Cancelled", "Canceled")]
+        stats["off"] = len(off)
+        stats["pending"] = sum(1 for c in comparisons if c.get("matched") and not c.get("final")) - len(off)
         per_day.append((d, stats))
+        details[d] = (comparisons, stats)
         all_finals.extend([c for c in comparisons if c.get("final")])
 
     correct = [c for c in all_finals if c.get("correct")]
@@ -764,7 +772,7 @@ def compute_cumulative_stats():
         "high_conf_correct": len(high_conf_correct),
         "high_conf_accuracy": (len(high_conf_correct) / len(high_conf) * 100) if high_conf else None,
     }
-    return per_day, overall
+    return per_day, overall, details
 
 
 def print_cumulative_stats(per_day, overall):
@@ -799,18 +807,28 @@ def print_cumulative_stats(per_day, overall):
     print("=" * 70 + "\n")
 
 
-def generate_stats_html(per_day, overall, path):
+def generate_stats_html(per_day, overall, path, detail_href_prefix=None):
     if overall["total_days"] == 0:
         body = '<p class="empty">目前還沒有任何可核對的預測記錄,累積幾天資料後再回來看。</p>'
         summary_line = ""
     else:
         rows = []
         for d, stats in per_day:
+            date_cell = (f'<a href="{detail_href_prefix}{d}.html" style="color:#4f8cff">{d}</a>'
+                         if detail_href_prefix is not None else d)
+            pending = stats.get("pending", 0)
+            off_n = stats.get("off", 0)
+            notes = []
+            if pending:
+                notes.append(f"另有{pending}場未結束")
+            if off_n:
+                notes.append(f"{off_n}場延賽/取消")
+            pending_note = f' <span class="unknown">({"、".join(notes)})</span>' if notes else ""
             if stats["finished_games"] > 0:
-                rows.append(f"""<tr><td>{d}</td><td>{stats['finished_games']}</td>
+                rows.append(f"""<tr><td>{date_cell}</td><td>{stats['finished_games']}{pending_note}</td>
                     <td>{stats['correct_count']}</td><td>{stats['accuracy']:.1f}%</td></tr>""")
             else:
-                rows.append(f"<tr><td>{d}</td><td>--</td><td>--</td><td class='unknown'>無資料</td></tr>")
+                rows.append(f"<tr><td>{date_cell}</td><td>--</td><td>--</td><td class='unknown'>尚無已結束比賽</td></tr>")
         body = f"""
         <table><thead><tr><th>日期</th><th>場次</th><th>猜對</th><th>命中率</th></tr></thead>
         <tbody>{''.join(rows)}</tbody></table>"""
@@ -876,17 +894,46 @@ def main():
                          help="核對某天的預測是否命中實際戰果(不指定日期則預設查昨天)")
     parser.add_argument("--stats", action="store_true",
                          help="顯示至今所有已存檔預測日期的累積命中率統計")
+    parser.add_argument("--detail-dir", metavar="DIR",
+                         help="搭配 --stats:為每個日期各產生一份逐場核對明細頁到此資料夾,統計頁的日期可點進去")
+    parser.add_argument("--latest-verify", metavar="FILE",
+                         help="搭配 --stats:把「最近一個比賽已全部打完的日期」的核對明細寫到此檔案")
     args = parser.parse_args()
 
     # -----------------------------------------------------------------
     # 累積準確率統計模式
     # -----------------------------------------------------------------
     if args.stats:
-        per_day, overall = compute_cumulative_stats()
+        per_day, overall, details = compute_cumulative_stats()
         print_cumulative_stats(per_day, overall)
+
+        detail_prefix = None
+        html_path = None
         if args.html:
             html_path = args.html if args.html != DEFAULT_HTML_OUTPUT else os.path.join(BASE_DIR, "stats.html")
-            generate_stats_html(per_day, overall, html_path)
+
+        if args.detail_dir and details:
+            for d, (comparisons, stats) in details.items():
+                generate_verify_html(comparisons, stats, d,
+                                     os.path.join(args.detail_dir, f"{d}.html"), nav_prefix="../")
+            print(f"已產生 {len(details)} 份每日核對明細: {args.detail_dir}")
+            if html_path:
+                rel = os.path.relpath(args.detail_dir, os.path.dirname(os.path.abspath(html_path)))
+                detail_prefix = rel.replace(os.sep, "/") + "/"
+
+        if args.latest_verify and details:
+            # 優先挑「已有結果且全部打完」的最近一天;沒有的話退而求其次挑最近一個有結果的日期
+            dates_desc = sorted(details.keys(), reverse=True)
+            pick = next((d for d in dates_desc
+                         if details[d][1]["finished_games"] > 0 and details[d][1]["pending"] == 0), None)
+            if pick is None:
+                pick = next((d for d in dates_desc if details[d][1]["finished_games"] > 0), None)
+            if pick:
+                generate_verify_html(details[pick][0], details[pick][1], pick, args.latest_verify)
+                print(f"最近核對報告({pick})已產生: {args.latest_verify}")
+
+        if args.html:
+            generate_stats_html(per_day, overall, html_path, detail_href_prefix=detail_prefix)
             print(f"統計網頁已產生: {html_path}")
             if not args.no_open:
                 webbrowser.open(f"file://{os.path.abspath(html_path)}")

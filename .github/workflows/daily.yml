@@ -26,26 +26,28 @@ jobs:
       - name: Compute Taipei-time dates
         id: dates
         run: |
-          echo "tomorrow=$(TZ='Asia/Taipei' date -d '+1 day' +%F)" >> "$GITHUB_OUTPUT"
-          echo "yesterday=$(TZ='Asia/Taipei' date -d '-1 day' +%F)" >> "$GITHUB_OUTPUT"
+          # 美國比賽在台北時間是「當天深夜到隔天中午」才打,所以預測的是台北時間「今天」這個日期的賽程
+          # (例如台北 9/28 早上 9 點,下一批還沒開打的比賽就是 MLB 賽程日期 9/28)
+          echo "today=$(TZ='Asia/Taipei' date +%F)" >> "$GITHUB_OUTPUT"
           echo "now=$(TZ='Asia/Taipei' date +'%Y-%m-%d %H:%M %Z')" >> "$GITHUB_OUTPUT"
 
       - name: Ensure docs folder exists
         run: mkdir -p docs
 
-      - name: Run today's prediction
+      - name: Run prediction for the upcoming MLB slate
         run: |
-          python mlb_predictor.py --live --date "${{ steps.dates.outputs.tomorrow }}" \
+          python mlb_predictor.py --live --date "${{ steps.dates.outputs.today }}" \
             --html docs/report.html --no-open
 
-      - name: Verify yesterday's predictions (ignore failure if no record yet)
+      - name: Verify all past predictions (per-day detail pages + cumulative stats)
         run: |
-          python mlb_predictor.py --verify "${{ steps.dates.outputs.yesterday }}" \
-            --html docs/verify_report.html --no-open || echo "尚無 ${{ steps.dates.outputs.yesterday }} 的預測記錄可核對,略過"
-
-      - name: Update cumulative accuracy stats
-        run: |
-          python mlb_predictor.py --stats --html docs/stats.html --no-open || true
+          # 一次把「所有」有預測記錄的日期都拿去對實際比分:
+          #   docs/verify/<日期>.html  每一天各自保留一份逐場明細
+          #   docs/stats.html          累積命中率,日期可點進明細
+          #   docs/verify_report.html  最近一個比賽已全部打完的日期
+          python mlb_predictor.py --stats --html docs/stats.html --no-open \
+            --detail-dir docs/verify --latest-verify docs/verify_report.html \
+            || echo "核對步驟失敗(可能是MLB API暫時連不上),下次排程會再試"
 
       - name: Commit and push results
         run: |
