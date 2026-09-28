@@ -1,0 +1,34 @@
+[
+  {
+    "home": "NYY",
+    "away": "BOS",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "home_pitcher_score": 6.0,
+    "away_pitcher_score": 6.0,
+    "season_pct_home": 0.577639751552795,
+    "season_pct_away": 0.5403726708074534,
+    "p_team_strength": 0.5772736592912932,
+    "pitcher_adj": 0.0,
+    "injury_adj": 0.027899999999999998,
+    "p_final": 0.6051736592912932,
+    "home_injury": 49,
+    "away_injury": 80
+  },
+  {
+    "home": "SD",
+    "away": "CHC",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "home_pitcher_score": 6.0,
+    "away_pitcher_score": 6.0,
+    "season_pct_home": 0.5590062111801242,
+    "season_pct_away": 0.546583850931677,
+    "p_team_strength": 0.5524550443172402,
+    "pitcher_adj": 0.0,
+    "injury_adj": 0.0324,
+    "p_final": 0.5848550443172402,
+    "home_injury": 43,
+    "away_injury": 79
+  }
+]
