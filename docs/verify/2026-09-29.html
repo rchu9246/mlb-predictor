@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>MLB 預測核對報告 - 2026-09-29</title>
+<style>
+  :root { --bg:#0f1115; --card:#171a21; --line:#2a2e38; --text:#e8e9ec; --sub:#9aa1ac;
+           --good:#4caf50; --bad:#ff6b6b; --neutral:#9aa1ac; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+          font-family:-apple-system,"Microsoft JhengHei","PingFang TC",sans-serif;
+          padding:24px 16px 60px; }
+  h1 { text-align:center; font-size:22px; margin-bottom:4px; }
+  .date { text-align:center; color:var(--sub); margin-bottom:12px; font-size:14px; }
+  .stats { text-align:center; color:var(--text); font-size:15px; margin-bottom:24px;
+            background:var(--card); max-width:900px; margin-left:auto; margin-right:auto;
+            padding:12px; border-radius:10px; }
+  table { width:100%; max-width:900px; margin:0 auto; border-collapse:collapse;
+           background:var(--card); border-radius:12px; overflow:hidden; }
+  td { padding:12px 10px; border-bottom:1px solid var(--line); font-size:14px; text-align:center; }
+  tr:last-child td { border-bottom:none; }
+  .abbr { color:var(--sub); font-size:11px; }
+  .correct { color:var(--good); font-weight:700; }
+  .wrong { color:var(--bad); font-weight:700; }
+  .unknown { color:var(--neutral); }
+  @media (max-width:700px) {
+    table, tbody, tr, td { display:block; width:100%; }
+    tr { margin-bottom:10px; border:1px solid var(--line); border-radius:10px; padding:6px; }
+    td { border:none; text-align:left; padding:4px 8px; }
+  }
+</style>
+</head>
+<body>
+  <h1>📊 MLB 預測核對報告</h1>
+  <div class="date">2026-09-29 賽事</div>
+  <div class="date" style="opacity:0.6;font-size:12px;">最後更新: 2026-09-28 11:01 (台北時間)</div>
+  <div class="stats">目前沒有已結束的比賽可供核對</div>
+  <table><tbody>
+        <tr><td>洋基 <span class="abbr">NYY</span></td>
+            <td>紅襪 <span class="abbr">BOS</span></td>
+            <td>60.5%</td><td>Scheduled</td>
+            <td class="unknown">尚未結束</td></tr>
+        <tr><td>教士 <span class="abbr">SD</span></td>
+            <td>小熊 <span class="abbr">CHC</span></td>
+            <td>58.5%</td><td>Scheduled</td>
+            <td class="unknown">尚未結束</td></tr></tbody></table>
+  <div style="text-align:center;margin-top:20px;">
+    <a href="../index.html" style="color:#4f8cff">回首頁</a>　
+    <a href="../report.html" style="color:#4f8cff">今日預測</a>　
+    <a href="../stats.html" style="color:#4f8cff">累積準確率(每日明細)</a>
+  </div>
+</body>
+</html>
