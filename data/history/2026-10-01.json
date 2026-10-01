@@ -1,37 +1,5 @@
 [
   {
-    "home": "SD",
-    "away": "CHC",
-    "home_pitcher": "TBD",
-    "away_pitcher": "TBD",
-    "home_pitcher_score": 6.0,
-    "away_pitcher_score": 6.0,
-    "season_pct_home": 0.5617283950617284,
-    "season_pct_away": 0.5493827160493827,
-    "p_team_strength": 0.5523933008518686,
-    "pitcher_adj": 0.0,
-    "injury_adj": 0.0324,
-    "p_final": 0.5847933008518685,
-    "home_injury": 43,
-    "away_injury": 79
-  },
-  {
-    "home": "NYY",
-    "away": "BOS",
-    "home_pitcher": "Gerrit Cole",
-    "away_pitcher": "Ranger Suarez",
-    "home_pitcher_score": 6.396850393700786,
-    "away_pitcher_score": 7.945617977528089,
-    "season_pct_home": 0.577639751552795,
-    "season_pct_away": 0.5370370370370371,
-    "p_team_strength": 0.5805458194227372,
-    "pitcher_adj": -0.027877816508891446,
-    "injury_adj": 0.027899999999999998,
-    "p_final": 0.5805680029138458,
-    "home_injury": 49,
-    "away_injury": 80
-  },
-  {
     "home": "ATL",
     "away": "PHI",
     "home_pitcher": "TBD",
@@ -46,21 +14,5 @@
     "p_final": 0.5563946768107568,
     "home_injury": 70,
     "away_injury": 47
-  },
-  {
-    "home": "HOU",
-    "away": "CWS",
-    "home_pitcher": "TBD",
-    "away_pitcher": "TBD",
-    "home_pitcher_score": 6.0,
-    "away_pitcher_score": 6.0,
-    "season_pct_home": 0.5,
-    "season_pct_away": 0.5185185185185185,
-    "p_team_strength": 0.5215453194650818,
-    "pitcher_adj": 0.0,
-    "injury_adj": 0.0117,
-    "p_final": 0.5332453194650818,
-    "home_injury": 62,
-    "away_injury": 75
   }
 ]
