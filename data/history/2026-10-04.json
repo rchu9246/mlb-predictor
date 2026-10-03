@@ -1,0 +1,34 @@
+[
+  {
+    "home": "LAD",
+    "away": "ATL",
+    "home_pitcher": "Blake Snell",
+    "away_pitcher": "TBD",
+    "home_pitcher_score": 10.0,
+    "away_pitcher_score": 6.0,
+    "season_pct_home": 0.6172839506172839,
+    "season_pct_away": 0.5802469135802469,
+    "p_team_strength": 0.5780055659795241,
+    "pitcher_adj": 0.072,
+    "injury_adj": 0.0,
+    "p_final": 0.6500055659795241,
+    "home_injury": 70,
+    "away_injury": 70
+  },
+  {
+    "home": "MIL",
+    "away": "SD",
+    "home_pitcher": "Logan Henderson",
+    "away_pitcher": "Michael King",
+    "home_pitcher_score": 7.452203389830508,
+    "away_pitcher_score": 6.32108108108108,
+    "season_pct_home": 0.6358024691358025,
+    "season_pct_away": 0.5617283950617284,
+    "p_team_strength": 0.6152309791922429,
+    "pitcher_adj": 0.020360201557489705,
+    "injury_adj": 0.0063,
+    "p_final": 0.6418911807497326,
+    "home_injury": 36,
+    "away_injury": 43
+  }
+]
