@@ -132,14 +132,21 @@ def fetch_live_standings(id_to_abbr):
 
 def fetch_live_matchups(id_to_abbr, target_date):
     """
-    從 MLB 官方 Stats API 抓取指定日期的對戰表與先發投手,失敗則退回本地檔案。
-    target_date: "YYYY-MM-DD" 字串
+    從 MLB 官方 Stats API 抓取對戰表與先發投手,失敗則退回本地檔案。
+
+    MLB 官方記錄的比賽日期是以「主場球隊的美國當地日期」為準,不是台北日期。季後賽場次
+    常常美國晚間開打,換算成台北時間會落在隔天凌晨,導致只查單一個台北日期會漏抓到部分
+    比賽(尤其例行賽結束、進入季後賽,一天常有多個系列賽同時開打時特別明顯)。
+    這裡改成查「目標日期的前一天到後一天」共3天範圍,再篩掉已經打完的比賽,
+    確保當下實際在進行或即將開始的場次不會因為時區誤差被漏掉。
     """
+    start = (date.fromisoformat(target_date) - timedelta(days=1)).isoformat()
+    end = (date.fromisoformat(target_date) + timedelta(days=1)).isoformat()
     url = (
         "https://statsapi.mlb.com/api/v1/schedule"
-        f"?sportId=1&date={target_date}&hydrate=probablePitcher,team"
+        f"?sportId=1&startDate={start}&endDate={end}&hydrate=probablePitcher,team"
     )
-    print(f"正在抓取 {target_date} 對戰表與先發投手...  ({url})")
+    print(f"正在抓取 {start}~{end} 對戰表與先發投手(含前後一天,避免季後賽時區誤差漏抓)...  ({url})")
     try:
         with urllib.request.urlopen(url, timeout=15) as resp:
             data = json.loads(resp.read().decode())
@@ -151,6 +158,9 @@ def fetch_live_matchups(id_to_abbr, target_date):
     seen = set()
     for d in data.get("dates", []):
         for game in d.get("games", []):
+            # 只保留還沒打完的場次(預備中或進行中),已結束的場次不需要再「預測」
+            if game.get("status", {}).get("abstractGameState") == "Final":
+                continue
             teams = game.get("teams", {})
             home = teams.get("home", {})
             away = teams.get("away", {})
@@ -406,15 +416,19 @@ def load_predictions_history(target_date):
 # ---------------------------------------------------------------------------
 def fetch_actual_results(id_to_abbr, target_date):
     """
-    抓取指定日期所有比賽的實際比分與狀態。
+    抓取指定日期前後一天範圍內所有比賽的實際比分與狀態(範圍原因同 fetch_live_matchups:
+    MLB 官方日期是美國當地日期,核對時同樣可能因時區誤差對不上台北日期,所以放寬範圍,
+    實際比對時是用主客隊代碼配對,不是用日期配對,放寬範圍不會核對錯場次)。
     回傳: [{"home":..,"away":..,"home_score":..,"away_score":..,
             "final": bool, "status": "Final"/"Postponed"/...}, ...]
     """
+    start = (date.fromisoformat(target_date) - timedelta(days=1)).isoformat()
+    end = (date.fromisoformat(target_date) + timedelta(days=1)).isoformat()
     url = (
         "https://statsapi.mlb.com/api/v1/schedule"
-        f"?sportId=1&date={target_date}&hydrate=linescore"
+        f"?sportId=1&startDate={start}&endDate={end}&hydrate=linescore"
     )
-    print(f"正在抓取 {target_date} 實際賽果...  ({url})")
+    print(f"正在抓取 {start}~{end} 實際賽果(含前後一天)...  ({url})")
     with urllib.request.urlopen(url, timeout=15) as resp:
         data = json.loads(resp.read().decode())
 
@@ -437,6 +451,7 @@ def fetch_actual_results(id_to_abbr, target_date):
                 "home": home_abbr, "away": away_abbr,
                 "home_score": home.get("score"), "away_score": away.get("score"),
                 "final": is_final, "status": detailed,
+                "date": d.get("date", ""),  # MLB官方記錄的比賽日期(美國當地),用於核對時優先比對同一天
             })
     return games
 
@@ -451,11 +466,26 @@ def compare_predictions(predicted, actual):
     comparisons = []
 
     for pred in predicted:
+        # 先找出主客隊都相符的候選場次。季後賽系列賽常常同一組對戰連續好幾天都打,
+        # 候選可能不只一個,這時優先選「MLB官方日期」離這筆預測的「台北日期」最近的那場,
+        # 避免抓到系列賽裡別天的比分(兩者日期字串因時區不同本來就不會完全相等,只能取最接近)。
+        candidates = [i for i, a in enumerate(actual_pool)
+                     if a["home"] == pred["home"] and a["away"] == pred["away"]]
         match_idx = None
-        for i, a in enumerate(actual_pool):
-            if a["home"] == pred["home"] and a["away"] == pred["away"]:
-                match_idx = i
-                break
+        if len(candidates) == 1:
+            match_idx = candidates[0]
+        elif len(candidates) > 1:
+            pred_date = pred.get("date")
+            if pred_date:
+                def _date_diff(i):
+                    ad = actual_pool[i].get("date") or pred_date
+                    try:
+                        return abs((date.fromisoformat(ad) - date.fromisoformat(pred_date)).days)
+                    except ValueError:
+                        return 99
+                match_idx = min(candidates, key=_date_diff)
+            else:
+                match_idx = candidates[0]
         if match_idx is None:
             comparisons.append({**pred, "matched": False, "status": "查無此場次"})
             continue
@@ -1036,6 +1066,8 @@ def main():
             print(f"[警告] 投手戰力計算過程發生錯誤 ({e}),部分投手可能改用備援分數")
 
     results = run_predictions(standings, pitcher_ratings, injury_scores, matchups)
+    for r in results:
+        r["date"] = target_date  # 記下這筆預測「原本針對哪一天」,核對時優先配對同日期的場次
     print_report(results)
     history_path = save_predictions_history(results, target_date)
     print(f"預測記錄已存檔(供之後 --verify 核對用): {history_path}")
