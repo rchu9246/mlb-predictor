@@ -1,0 +1,34 @@
+[
+  {
+    "home": "CLE",
+    "away": "CWS",
+    "home_pitcher": "Gavin Williams",
+    "away_pitcher": "Anthony Kay",
+    "home_pitcher_score": 7.3019891500904155,
+    "away_pitcher_score": 5.715189873417722,
+    "season_pct_home": 0.5246913580246914,
+    "season_pct_away": 0.5185185185185185,
+    "p_team_strength": 0.546138497867433,
+    "pitcher_adj": 0.028562386980108486,
+    "injury_adj": 0.0243,
+    "p_final": 0.5990008848475414,
+    "home_injury": 48,
+    "away_injury": 75
+  },
+  {
+    "home": "TB",
+    "away": "NYY",
+    "home_pitcher": "Freddy Peralta",
+    "away_pitcher": "Cam Schlittler",
+    "home_pitcher_score": 5.925443786982249,
+    "away_pitcher_score": 8.943201376936317,
+    "season_pct_home": 0.6049382716049383,
+    "season_pct_away": 0.577639751552795,
+    "p_team_strength": 0.5679115218544049,
+    "pitcher_adj": -0.054319636619173224,
+    "injury_adj": -0.039599999999999996,
+    "p_final": 0.4739918852352316,
+    "home_injury": 93,
+    "away_injury": 49
+  }
+]

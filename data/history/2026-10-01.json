@@ -1,0 +1,18 @@
+[
+  {
+    "home": "ATL",
+    "away": "PHI",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "home_pitcher_score": 6.0,
+    "away_pitcher_score": 6.0,
+    "season_pct_home": 0.5802469135802469,
+    "season_pct_away": 0.5432098765432098,
+    "p_team_strength": 0.5770946768107569,
+    "pitcher_adj": 0.0,
+    "injury_adj": -0.0207,
+    "p_final": 0.5563946768107568,
+    "home_injury": 70,
+    "away_injury": 47
+  }
+]
