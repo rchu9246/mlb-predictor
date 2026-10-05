@@ -1,22 +1,5 @@
 [
   {
-    "home": "LAD",
-    "away": "ATL",
-    "home_pitcher": "Blake Snell",
-    "away_pitcher": "Ray Kerr",
-    "home_pitcher_score": 10.0,
-    "away_pitcher_score": 6.8181818181818175,
-    "season_pct_home": 0.6172839506172839,
-    "season_pct_away": 0.5802469135802469,
-    "p_team_strength": 0.5780055659795241,
-    "pitcher_adj": 0.05727272727272728,
-    "injury_adj": 0.0,
-    "p_final": 0.6352782932522514,
-    "home_injury": 70,
-    "away_injury": 70,
-    "date": "2026-10-05"
-  },
-  {
     "home": "CLE",
     "away": "CWS",
     "home_pitcher": "Gavin Williams",
