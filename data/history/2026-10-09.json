@@ -1,0 +1,36 @@
+[
+  {
+    "home": "CLE",
+    "away": "CWS",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "home_pitcher_score": 6.0,
+    "away_pitcher_score": 6.0,
+    "season_pct_home": 0.5246913580246914,
+    "season_pct_away": 0.5185185185185185,
+    "p_team_strength": 0.546138497867433,
+    "pitcher_adj": 0.0,
+    "injury_adj": 0.0243,
+    "p_final": 0.570438497867433,
+    "home_injury": 48,
+    "away_injury": 75,
+    "date": "2026-10-09"
+  },
+  {
+    "home": "CWS",
+    "away": "CLE",
+    "home_pitcher": "Hagen Smith",
+    "away_pitcher": "Parker Messick",
+    "home_pitcher_score": 9.149999999999999,
+    "away_pitcher_score": 7.973881932021466,
+    "season_pct_home": 0.5185185185185185,
+    "season_pct_away": 0.5246913580246914,
+    "p_team_strength": 0.5338493424552008,
+    "pitcher_adj": 0.021170125223613587,
+    "injury_adj": -0.0243,
+    "p_final": 0.5307194676788144,
+    "home_injury": 75,
+    "away_injury": 48,
+    "date": "2026-10-09"
+  }
+]
