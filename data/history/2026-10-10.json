@@ -1,0 +1,36 @@
+[
+  {
+    "home": "MIL",
+    "away": "LAD",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "home_pitcher_score": 6.0,
+    "away_pitcher_score": 6.0,
+    "season_pct_home": 0.6358024691358025,
+    "season_pct_away": 0.6172839506172839,
+    "p_team_strength": 0.5595900325195865,
+    "pitcher_adj": 0.0,
+    "injury_adj": 0.0306,
+    "p_final": 0.5901900325195865,
+    "home_injury": 36,
+    "away_injury": 70,
+    "date": "2026-10-10"
+  },
+  {
+    "home": "CLE",
+    "away": "CWS",
+    "home_pitcher": "TBD",
+    "away_pitcher": "Sean Burke",
+    "home_pitcher_score": 6.0,
+    "away_pitcher_score": 7.141972920696324,
+    "season_pct_home": 0.5246913580246914,
+    "season_pct_away": 0.5185185185185185,
+    "p_team_strength": 0.546138497867433,
+    "pitcher_adj": -0.020555512572533824,
+    "injury_adj": 0.0243,
+    "p_final": 0.5498829852948991,
+    "home_injury": 48,
+    "away_injury": 75,
+    "date": "2026-10-10"
+  }
+]
