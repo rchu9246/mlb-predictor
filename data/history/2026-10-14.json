@@ -17,20 +17,20 @@
     "date": "2026-10-14"
   },
   {
-    "home": "TB",
-    "away": "CLE",
-    "home_pitcher": "Freddy Peralta",
-    "away_pitcher": "Parker Messick",
-    "home_pitcher_score": 5.925443786982249,
-    "away_pitcher_score": 7.973881932021466,
-    "season_pct_home": 0.6049382716049383,
-    "season_pct_away": 0.5246913580246914,
-    "p_team_strength": 0.6195364621026448,
-    "pitcher_adj": -0.0368718866107059,
-    "injury_adj": -0.0405,
-    "p_final": 0.5421645754919389,
-    "home_injury": 93,
-    "away_injury": 48,
+    "home": "CLE",
+    "away": "TB",
+    "home_pitcher": "TBD",
+    "away_pitcher": "Griffin Jax",
+    "home_pitcher_score": 6.0,
+    "away_pitcher_score": 6.710385756676557,
+    "season_pct_home": 0.5246913580246914,
+    "season_pct_away": 0.6049382716049383,
+    "p_team_strength": 0.4583726025003276,
+    "pitcher_adj": -0.012786943620178017,
+    "injury_adj": 0.0405,
+    "p_final": 0.48608565888014954,
+    "home_injury": 48,
+    "away_injury": 93,
     "date": "2026-10-14"
   },
   {
@@ -48,23 +48,6 @@
     "p_final": 0.48968558550908275,
     "home_injury": 70,
     "away_injury": 36,
-    "date": "2026-10-14"
-  },
-  {
-    "home": "CLE",
-    "away": "TB",
-    "home_pitcher": "TBD",
-    "away_pitcher": "TBD",
-    "home_pitcher_score": 6.0,
-    "away_pitcher_score": 6.0,
-    "season_pct_home": 0.5246913580246914,
-    "season_pct_away": 0.6049382716049383,
-    "p_team_strength": 0.4583726025003276,
-    "pitcher_adj": 0.0,
-    "injury_adj": 0.0405,
-    "p_final": 0.49887260250032756,
-    "home_injury": 48,
-    "away_injury": 93,
     "date": "2026-10-14"
   }
 ]
