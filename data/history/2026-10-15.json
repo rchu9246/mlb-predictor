@@ -2,23 +2,6 @@
   {
     "home": "LAD",
     "away": "MIL",
-    "home_pitcher": "Blake Snell",
-    "away_pitcher": "Robert Gasser",
-    "home_pitcher_score": 10.0,
-    "away_pitcher_score": 6.252439024390243,
-    "season_pct_home": 0.6172839506172839,
-    "season_pct_away": 0.6358024691358025,
-    "p_team_strength": 0.5202855855090828,
-    "pitcher_adj": 0.06745609756097563,
-    "injury_adj": -0.0306,
-    "p_final": 0.5571416830700584,
-    "home_injury": 70,
-    "away_injury": 36,
-    "date": "2026-10-15"
-  },
-  {
-    "home": "LAD",
-    "away": "MIL",
     "home_pitcher": "Tyler Glasnow",
     "away_pitcher": "TBD",
     "home_pitcher_score": 8.529729729729729,
@@ -31,23 +14,6 @@
     "p_final": 0.5352207206442179,
     "home_injury": 70,
     "away_injury": 36,
-    "date": "2026-10-15"
-  },
-  {
-    "home": "CLE",
-    "away": "TB",
-    "home_pitcher": "TBD",
-    "away_pitcher": "Griffin Jax",
-    "home_pitcher_score": 6.0,
-    "away_pitcher_score": 6.710385756676557,
-    "season_pct_home": 0.5246913580246914,
-    "season_pct_away": 0.6049382716049383,
-    "p_team_strength": 0.4583726025003276,
-    "pitcher_adj": -0.012786943620178017,
-    "injury_adj": 0.0405,
-    "p_final": 0.48608565888014954,
-    "home_injury": 48,
-    "away_injury": 93,
     "date": "2026-10-15"
   },
   {
@@ -65,6 +31,23 @@
     "p_final": 0.48968558550908275,
     "home_injury": 70,
     "away_injury": 36,
+    "date": "2026-10-15"
+  },
+  {
+    "home": "CLE",
+    "away": "TB",
+    "home_pitcher": "Gavin Williams",
+    "away_pitcher": "Griffin Jax",
+    "home_pitcher_score": 7.3019891500904155,
+    "away_pitcher_score": 6.710385756676557,
+    "season_pct_home": 0.5246913580246914,
+    "season_pct_away": 0.6049382716049383,
+    "p_team_strength": 0.4583726025003276,
+    "pitcher_adj": 0.010648861081449459,
+    "injury_adj": 0.0405,
+    "p_final": 0.5095214635817771,
+    "home_injury": 48,
+    "away_injury": 93,
     "date": "2026-10-15"
   },
   {
