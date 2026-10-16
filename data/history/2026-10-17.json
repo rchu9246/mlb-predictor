@@ -1,0 +1,36 @@
+[
+  {
+    "home": "CLE",
+    "away": "TB",
+    "home_pitcher": "Shawn Armstrong",
+    "away_pitcher": "Nick Martinez",
+    "home_pitcher_score": 5.71132075471698,
+    "away_pitcher_score": 6.339999999999999,
+    "season_pct_home": 0.5246913580246914,
+    "season_pct_away": 0.6049382716049383,
+    "p_team_strength": 0.4583726025003276,
+    "pitcher_adj": -0.011316226415094338,
+    "injury_adj": 0.0405,
+    "p_final": 0.4875563760852332,
+    "home_injury": 48,
+    "away_injury": 93,
+    "date": "2026-10-17"
+  },
+  {
+    "home": "CLE",
+    "away": "TB",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "home_pitcher_score": 6.0,
+    "away_pitcher_score": 6.0,
+    "season_pct_home": 0.5246913580246914,
+    "season_pct_away": 0.6049382716049383,
+    "p_team_strength": 0.4583726025003276,
+    "pitcher_adj": 0.0,
+    "injury_adj": 0.0405,
+    "p_final": 0.49887260250032756,
+    "home_injury": 48,
+    "away_injury": 93,
+    "date": "2026-10-17"
+  }
+]
