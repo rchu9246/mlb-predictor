@@ -1,0 +1,36 @@
+[
+  {
+    "home": "TB",
+    "away": "CLE",
+    "home_pitcher": "Freddy Peralta",
+    "away_pitcher": "Shawn Armstrong",
+    "home_pitcher_score": 5.925443786982249,
+    "away_pitcher_score": 5.71132075471698,
+    "season_pct_home": 0.6049382716049383,
+    "season_pct_away": 0.5246913580246914,
+    "p_team_strength": 0.6195364621026448,
+    "pitcher_adj": 0.003854214580774833,
+    "injury_adj": -0.0405,
+    "p_final": 0.5828906766834197,
+    "home_injury": 93,
+    "away_injury": 48,
+    "date": "2026-10-20"
+  },
+  {
+    "home": "TB",
+    "away": "CLE",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "home_pitcher_score": 6.0,
+    "away_pitcher_score": 6.0,
+    "season_pct_home": 0.6049382716049383,
+    "season_pct_away": 0.5246913580246914,
+    "p_team_strength": 0.6195364621026448,
+    "pitcher_adj": 0.0,
+    "injury_adj": -0.0405,
+    "p_final": 0.5790364621026448,
+    "home_injury": 93,
+    "away_injury": 48,
+    "date": "2026-10-20"
+  }
+]
