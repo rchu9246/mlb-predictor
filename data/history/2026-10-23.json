@@ -1,0 +1,36 @@
+[
+  {
+    "home": "MIL",
+    "away": "TB",
+    "home_pitcher": "Jacob Misiorowski",
+    "away_pitcher": "TBD",
+    "home_pitcher_score": 9.758015267175573,
+    "away_pitcher_score": 6.0,
+    "season_pct_home": 0.6358024691358025,
+    "season_pct_away": 0.6049382716049383,
+    "p_team_strength": 0.572351030646043,
+    "pitcher_adj": 0.0676442748091603,
+    "injury_adj": 0.0513,
+    "p_final": 0.6912953054552032,
+    "home_injury": 36,
+    "away_injury": 93,
+    "date": "2026-10-23"
+  },
+  {
+    "home": "MIL",
+    "away": "TB",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "home_pitcher_score": 6.0,
+    "away_pitcher_score": 6.0,
+    "season_pct_home": 0.6358024691358025,
+    "season_pct_away": 0.6049382716049383,
+    "p_team_strength": 0.572351030646043,
+    "pitcher_adj": 0.0,
+    "injury_adj": 0.0513,
+    "p_final": 0.623651030646043,
+    "home_injury": 36,
+    "away_injury": 93,
+    "date": "2026-10-23"
+  }
+]
