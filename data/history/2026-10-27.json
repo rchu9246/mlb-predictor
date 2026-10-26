@@ -1,0 +1,53 @@
+[
+  {
+    "home": "TB",
+    "away": "MIL",
+    "home_pitcher": "Freddy Peralta",
+    "away_pitcher": "Robert Gasser",
+    "home_pitcher_score": 5.925443786982249,
+    "away_pitcher_score": 6.252439024390243,
+    "season_pct_home": 0.6049382716049383,
+    "season_pct_away": 0.6358024691358025,
+    "p_team_strength": 0.5073083547265458,
+    "pitcher_adj": -0.005885914273343889,
+    "injury_adj": -0.0513,
+    "p_final": 0.45012244045320193,
+    "home_injury": 93,
+    "away_injury": 36,
+    "date": "2026-10-27"
+  },
+  {
+    "home": "TB",
+    "away": "MIL",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "home_pitcher_score": 6.0,
+    "away_pitcher_score": 6.0,
+    "season_pct_home": 0.6049382716049383,
+    "season_pct_away": 0.6358024691358025,
+    "p_team_strength": 0.5073083547265458,
+    "pitcher_adj": 0.0,
+    "injury_adj": -0.0513,
+    "p_final": 0.4560083547265458,
+    "home_injury": 93,
+    "away_injury": 36,
+    "date": "2026-10-27"
+  },
+  {
+    "home": "TB",
+    "away": "MIL",
+    "home_pitcher": "TBD",
+    "away_pitcher": "TBD",
+    "home_pitcher_score": 6.0,
+    "away_pitcher_score": 6.0,
+    "season_pct_home": 0.6049382716049383,
+    "season_pct_away": 0.6358024691358025,
+    "p_team_strength": 0.5073083547265458,
+    "pitcher_adj": 0.0,
+    "injury_adj": -0.0513,
+    "p_final": 0.4560083547265458,
+    "home_injury": 93,
+    "away_injury": 36,
+    "date": "2026-10-27"
+  }
+]
